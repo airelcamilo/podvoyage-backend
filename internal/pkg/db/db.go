@@ -1,6 +1,8 @@
 package db
 
 import (
+	"os"
+
 	"github.com/airelcamilo/podvoyage-backend/internal/pkg/utils"
 	"github.com/airelcamilo/podvoyage-backend/internal/podvoyage/model"
 	"gorm.io/driver/postgres"
@@ -8,7 +10,7 @@ import (
 )
 
 func Connect() *gorm.DB {
-	dsn := "host=localhost user=postgres password=postgres dbname=podvoyage port=5432"
+	dsn := os.Getenv("SUPABASE_DB")
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	utils.CheckErrIsNil(err)
 
