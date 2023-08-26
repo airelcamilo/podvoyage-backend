@@ -1,4 +1,4 @@
-FROM golang:1.19-buster as builder
+FROM golang:1.20-buster as builder
 
 # Create and change to the app directory.
 WORKDIR /app
@@ -14,7 +14,7 @@ COPY . ./
 
 # Build the binary.
 WORKDIR /cmd/podvoyage
-RUN go build -mod=readonly -v -o server
+RUN go build -gcflags="all=-N -l" -v -o server
 
 # Use the official Debian slim image for a lean production container.
 # https://hub.docker.com/_/debian
