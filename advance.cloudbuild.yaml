@@ -84,10 +84,10 @@ steps:
       gcloud run services delete ${_SERVICE_NAME}-$BUILD_ID --region ${_DEPLOY_REGION} --quiet
 
 substitutions:
-  _GCR_HOSTNAME: us-central1-docker.pkg.dev
-  _SERVICE_NAME: microservice-template
-  _DEPLOY_REGION: us-central1
-  _REPOSITORY: samples
+  _GCR_HOSTNAME: asia-east1-docker.pkg.dev
+  _SERVICE_NAME: podvoyage-backend
+  _DEPLOY_REGION: asia-east1
+  _REPOSITORY: podvoyage-backend
 
 options:
   volumes:
