@@ -1,6 +1,6 @@
 # Podvoyage Backend
 
-Welcome to the backend code repository for Podvoyage, a podcast player application. With Podvoyage, you can easily search your favorite podcasts, save it for later, and listen to it. This project utilizes `Golang`, accompanied with packages, such as `gorm`, `mux`, and `cors`. Also this project using `postgreSQL` for the database system.
+Welcome to the backend code repository for Podvoyage, a podcast player application. With Podvoyage, you can easily search your favorite podcasts, save it for later, and listen to it. This project utilizes `Golang`, accompanied with packages, such as `gorm`, `mux`, and `cors`. Also this project uses `Supabase` for the database system and deployed using `Google Cloud Run`.
 
 ## Features
 1. **Search your favorite podcast** using iTunes API
@@ -12,7 +12,12 @@ Welcome to the backend code repository for Podvoyage, a podcast player applicati
 
 ## Getting Started
 
-Start by adding the `postgreSQL` database:
+Using local `postgreSQL` database, in `db.go` change 
+```
+os.Getenv("SUPABASE_DB") -> "host=localhost user=postgres password=postgres dbname=podvoyage port=5432"
+```
+
+Then, add the `podvoyage` database:
 ```SQL
 CREATE DATABASE podvoyage;
 ```
@@ -29,7 +34,8 @@ Open [http://localhost:4000](http://localhost:4000) and you can start interactin
 In this repository, there also provided a comprehensive Postman collection:
 [Postman JSON collection](podvoyage_postman.json)
 
-Available API calls:
+## Available API Calls
+
 <details>
 <summary>Podcast</summary>
 <br>
