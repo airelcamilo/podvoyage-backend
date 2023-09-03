@@ -1,6 +1,8 @@
 package db
 
 import (
+	"os"
+
 	"github.com/airelcamilo/podvoyage-backend/internal/pkg/utils"
 	pm "github.com/airelcamilo/podvoyage-backend/internal/podvoyage/model"
 	um "github.com/airelcamilo/podvoyage-backend/internal/user/model"
@@ -9,8 +11,8 @@ import (
 )
 
 func Connect() *gorm.DB {
-	//db_addr := os.Getenv("SUPABASE_DB")
-	db, err := gorm.Open(postgres.Open("host=localhost user=postgres password=postgres dbname=podvoyage port=5432"), &gorm.Config{})
+	db_addr := os.Getenv("SUPABASE_DB")
+	db, err := gorm.Open(postgres.Open(db_addr), &gorm.Config{})
 	utils.CheckErrIsNil(err)
 
 	db.AutoMigrate(&pm.Category{}, &pm.Folder{}, &pm.Podcast{}, &pm.Episode{}, &pm.Item{}, &pm.Queue{})
