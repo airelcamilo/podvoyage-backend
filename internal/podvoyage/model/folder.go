@@ -4,12 +4,14 @@ import "gorm.io/gorm"
 
 type Folder struct {
 	Id         int        `json:"id" gorm:"primaryKey"`
+	UserId     int        `json:"userId"`
 	FolderName string     `json:"folderName"`
 	Podcasts   []*Podcast `json:"podcasts" gorm:"many2many:folders_podcasts;constraint:OnDelete:CASCADE;"`
 }
 
 func (f *Folder) AfterCreate(tx *gorm.DB) (err error) {
 	if result := tx.Model(&Item{}).Create(&Item{
+		UserId:     f.UserId,
 		Type:       "Folder",
 		Name:       f.FolderName,
 		ArtistName: "You",
@@ -23,7 +25,7 @@ func (f *Folder) AfterCreate(tx *gorm.DB) (err error) {
 
 func (f *Folder) AfterDelete(tx *gorm.DB) (err error) {
 	var item Item
-	if result := tx.Model(&Item{}).Where("folder_id = ?", f.Id).First(&item); result.Error != nil {
+	if result := tx.Model(&Item{}).Where("folder_id = ? AND user_id = ?", f.Id, f.UserId).First(&item); result.Error != nil {
 		return result.Error
 	}
 

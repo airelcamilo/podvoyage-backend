@@ -7,6 +7,7 @@ import (
 type Podcast struct {
 	Id          int         `json:"id" gorm:"primaryKey"`
 	TrackId     int         `json:"trackId"`
+	UserId      int         `json:"userId"`
 	PodcastName string      `json:"trackName"`
 	ArtistName  string      `json:"artistName"`
 	FeedUrl     string      `json:"feedUrl"`
@@ -24,6 +25,7 @@ type Category struct {
 
 func (p *Podcast) AfterCreate(tx *gorm.DB) (err error) {
 	if result := tx.Model(&Item{}).Create(&Item{
+		UserId:     p.UserId,
 		Type:       "Podcast",
 		Name:       p.PodcastName,
 		ArtistName: p.ArtistName,
@@ -38,7 +40,7 @@ func (p *Podcast) AfterCreate(tx *gorm.DB) (err error) {
 
 func (p *Podcast) AfterDelete(tx *gorm.DB) (err error) {
 	var item Item
-	if result := tx.Model(&Item{}).Where("podcast_id = ?", p.Id).First(&item); result.Error != nil {
+	if result := tx.Model(&Item{}).Where("podcast_id = ? AND user_id = ?", p.Id, p.UserId).First(&item); result.Error != nil {
 		return nil
 	}
 

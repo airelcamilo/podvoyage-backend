@@ -29,14 +29,18 @@ func CheckErrIsNil(err error) {
 func FormatResponse(w http.ResponseWriter, statusCode int, obj interface{}) {
 	w.Header().Add("Content-Type", "application/json")
 	w.WriteHeader(statusCode)
-	json.NewEncoder(w).Encode(obj)
+	if err, ok := obj.(error); ok {
+		json.NewEncoder(w).Encode(err.Error())
+	} else {
+		json.NewEncoder(w).Encode(obj)
+	}
 }
 
 func GetId(w http.ResponseWriter, r *http.Request) int {
 	vars := mux.Vars(r)
 	id, err := strconv.Atoi(vars["id"])
 	if err != nil {
-		FormatResponse(w, http.StatusBadRequest, nil)
+		FormatResponse(w, http.StatusBadRequest, err)
 		return -1
 	}
 	return id

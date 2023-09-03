@@ -11,6 +11,7 @@ type Episode struct {
 	Id          int              `json:"id" gorm:"primaryKey"`
 	PodcastId   int              `json:"podcastId"`
 	TrackId     int              `json:"trackId"`
+	UserId      int              `json:"userId"`
 	Title       string           `json:"title" xml:"title"`
 	Desc        string           `json:"desc" xml:"encoded"`
 	Season      int              `json:"season" xml:"season"`

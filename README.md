@@ -3,12 +3,13 @@
 Welcome to the backend code repository for Podvoyage, a podcast player application. With Podvoyage, you can easily search your favorite podcasts, save it for later, and listen to it. This project utilizes `Golang`, accompanied with packages, such as `gorm`, `mux`, and `cors`. Also this project uses `Supabase` for the database system and deployed using `Google Cloud Run`.
 
 ## Features
-1. **Search your favorite podcast** using iTunes API
-2. **Save or remove podcast** from the databse
-3. **Create or remove folder** for organizing your podcasts
-4. **Mark podcasts as played**
-5. **Resuming podcast** from where you left off
-6. **Add or remove podcast from queue** (Not integrated with frontend yet)
+1. **Create or login** to your account
+2. **Search your favorite podcast** using iTunes API
+3. **Save or remove podcast** from the databse
+4. **Create or remove folder** for organizing your podcasts
+5. **Mark podcasts as played**
+6. **Resuming podcast** from where you left off
+7. **Add or remove podcast from queue** (Not integrated with frontend yet)
 
 ## Getting Started
 
@@ -32,9 +33,98 @@ go run main.go
 Open [http://localhost:4000](http://localhost:4000) and you can start interacting with the API.
 
 In this repository, there also provided a comprehensive Postman collection:
-[Postman JSON collection](podvoyage_postman.json)
+1. [Postman Podvoyage JSON collection](podvoyage_postman.json)
+2. [Postman User JSON collection](user_postman.json)
 
 ## Available API Calls
+
+<details>
+<summary>User</summary>
+<br>
+
+* `[POST]` Register
+    
+    Url: 
+    ```
+    /api/register
+    ```
+    Body:
+    ```JSON
+    {
+      "name": string,
+      "email": string,
+      "username": string,
+      "password": string
+    }
+    ```
+    Return: 
+    ```JSON
+    {
+      "token": string,
+      "user": User
+    }
+    ```
+
+* `[POST]` Login
+
+    Url: 
+    ```
+    /api/login
+    ```
+    Body:
+    ```JSON
+    {
+      "email": string,
+      "password": string
+    }
+    ```
+    Return: 
+    ```JSON
+    {
+      "token": string,
+      "user": User
+    }
+    ```
+
+* `[POST]` Validate
+
+    Url: 
+    ```
+    /api/validate
+    ```
+    Body:
+    ```JSON
+    {
+      "token": string,
+    }
+    ```
+    Return: 
+    ```JSON
+    {
+      "name": string,
+      "email": string,
+      "username": string,
+      "password": string
+    }
+    ```
+
+* `[POST]` Logout
+    
+    Url: 
+    ```
+    /api/logout
+    ```
+    Body:
+    ```JSON
+    {
+      "token": string,
+    }
+    ```
+    Return: 
+    ```JSON
+    string
+    ```
+</details>
 
 <details>
 <summary>Podcast</summary>

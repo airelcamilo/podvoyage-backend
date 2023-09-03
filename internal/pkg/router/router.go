@@ -10,6 +10,7 @@ func Router() *mux.Router {
 	r := mux.NewRouter()
 
 	PodvoyageRouter(r, DB)
+	UserRouter(r, DB)
 
 	return r
 }

@@ -2,6 +2,7 @@ package model
 
 type Item struct {
 	Id         int    `json:"id" gorm:"primaryKey"`
+	UserId     int    `json:"-"`
 	Type       string `json:"type"`
 	Name       string `json:"name"`
 	ArtistName string `json:"artistName"`

@@ -1,28 +1,28 @@
 package db
 
 import (
-	"os"
-
 	"github.com/airelcamilo/podvoyage-backend/internal/pkg/utils"
-	"github.com/airelcamilo/podvoyage-backend/internal/podvoyage/model"
+	pm "github.com/airelcamilo/podvoyage-backend/internal/podvoyage/model"
+	um "github.com/airelcamilo/podvoyage-backend/internal/user/model"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
 func Connect() *gorm.DB {
-	dsn := os.Getenv("SUPABASE_DB")
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	//db_addr := os.Getenv("SUPABASE_DB")
+	db, err := gorm.Open(postgres.Open("host=localhost user=postgres password=postgres dbname=podvoyage port=5432"), &gorm.Config{})
 	utils.CheckErrIsNil(err)
 
-	db.AutoMigrate(&model.Category{}, &model.Folder{}, &model.Podcast{}, &model.Episode{}, &model.Item{}, &model.Queue{})
-	podcast := model.Podcast{
+	db.AutoMigrate(&pm.Category{}, &pm.Folder{}, &pm.Podcast{}, &pm.Episode{}, &pm.Item{}, &pm.Queue{})
+	db.AutoMigrate(&um.User{}, &um.Session{})
+	podcast := pm.Podcast{
 		Id: 1,
 	}
 	if result := db.FirstOrCreate(&podcast); result.Error != nil {
 		return nil
 	}
 
-	if result := db.Where("podcast_id = ?", 1).Delete(&model.Item{}); result.Error != nil {
+	if result := db.Where("podcast_id = ?", 1).Delete(&pm.Item{}); result.Error != nil {
 		return nil
 	}
 
