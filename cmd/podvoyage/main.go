@@ -62,8 +62,8 @@ func main() {
 func newApp(ctx context.Context, port, projectID string) (*App, error) {
 	// Set CORS
 	c := cors.New(cors.Options{
-		AllowedOrigins:   []string{"*"},
-		AllowedMethods:   []string{"HEAD", "GET", "POST", "PUT", "DELETE"},
+		AllowedOrigins: []string{"*"},
+		AllowedMethods: []string{"HEAD", "GET", "POST", "PUT", "DELETE"},
 		AllowedHeaders: []string{"Content-Type", "Authorization"},
 	})
 
