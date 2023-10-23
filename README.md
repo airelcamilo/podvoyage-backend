@@ -33,8 +33,9 @@ go run main.go
 Open [http://localhost:4000](http://localhost:4000) and you can start interacting with the API.
 
 In this repository, there also provided a comprehensive Postman collection:
-1. [Postman Podvoyage JSON collection](podvoyage_postman.json)
-2. [Postman User JSON collection](user_postman.json)
+1. [Postman Podvoyage environment](Podvoyage.postman_environment.json)
+1. [Postman Podvoyage collection](Podvoyage.postman_collection.json)
+2. [Postman User collection](User.postman_collection.json)
 
 ## Available API Calls
 
