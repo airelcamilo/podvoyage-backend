@@ -27,7 +27,7 @@ func (s *UserService) Register(request *model.RegisterRequest) (model.UserRespon
 	if result := s.DB.Where("username = ?", request.Username).First(&temp); result.Error == nil {
 		return userResponse, errors.New("username already taken")
 	}
-	
+
 	if result := s.DB.Where("email = ?", request.Email).First(&temp); result.Error == nil {
 		return userResponse, errors.New("email already taken")
 	}
@@ -70,8 +70,7 @@ func (s *UserService) Login(request *model.LoginRequest) (model.UserResponse, er
 	if err != nil {
 		return userResponse, errors.New("could not login")
 	}
-
-	if result := s.DB.Create(&model.Session{
+	if result := s.DB.Delete(&model.Session{UserId: user.Id}).Create(&model.Session{
 		Token: token,
 		User:  user,
 	}); result.Error != nil {
