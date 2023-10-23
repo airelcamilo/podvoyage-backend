@@ -111,7 +111,7 @@ func (s *PodcastService) GetAllPodcast(userId int) ([]model.Podcast, error) {
 	semaphore := make(chan struct{}, s.MAX_CONCURRENT_JOBS)
 
 	for i := range podcasts {
-		lastEpisodeDate, err := time.Parse("2006-01-02 15:04:05 -0700 -0700", string(podcasts[i].Episodes[0].Date))
+		lastEpisodeDate, err := time.Parse("2006-01-02 15:04:05 -0700 UTC", string(podcasts[i].Episodes[0].Date))
 		if err != nil {
 			return podcasts, err
 		}
