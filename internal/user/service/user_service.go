@@ -70,7 +70,7 @@ func (s *UserService) Login(request *model.LoginRequest) (model.UserResponse, er
 	if err != nil {
 		return userResponse, errors.New("could not login")
 	}
-	if result := s.DB.Delete(&model.Session{UserId: user.Id}).Create(&model.Session{
+	if result := s.DB.Delete(&model.Session{}, "user_id", user.Id).Create(&model.Session{
 		Token: token,
 		User:  user,
 	}); result.Error != nil {
